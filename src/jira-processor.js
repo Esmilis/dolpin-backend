@@ -25,6 +25,7 @@ var JiraProcessor = (function () {
             case "issue_created":
                 return eventType.issueCreated;
             case "issue_updated":
+            case "issue_generic":
                 var lastChange = _.last(body.changelog.items).toString;
                 switch (lastChange) {
                     case "In Progress":
