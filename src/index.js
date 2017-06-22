@@ -40,6 +40,12 @@ router.route('/jirahooks').post(function (req, res) {
 router.route('/jenkinshooks').post(function (req, res) {
     player.play(new jira_processor_1.SoundEvent("empty", jira_processor_1.eventType.unknown));
 });
+router.route('/updateConfig').get(function (req, res) {
+    console.log("updateConfig");
+    res.json({ message: 'update config' });
+});
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
 app.use('/api', router);
 // START THE SERVER
 // =============================================================================
