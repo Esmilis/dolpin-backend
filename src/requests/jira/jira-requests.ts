@@ -7,6 +7,8 @@ var suprScrtPwd = "admin";
 export default class JiraHooks {
     public initHooks() {
 
+        this.deleteHook();
+
         this.setupSprintStartEnd();
 
         this.setupIssueHooks("TEST");
@@ -46,6 +48,42 @@ export default class JiraHooks {
                     "excludeIssueDetails": false
                 }
             },
+            function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    //console.log(body)
+                    //console.log(error);
+                    //console.log(response);
+                }
+            }
+        ).auth(adminJiraUser, suprScrtPwd, true);
+    }
+
+    private deleteHook(){
+
+        var data;
+        request.get(
+            jiraAddress,
+            (error, response, body) => {
+                if (!error && response.statusCode == 200) {
+                    //console.log(body)
+                    //console.log(error);
+                    //console.log(response);
+                    data = JSON.parse(response.body);
+                    data.forEach((hook)=> {
+                        console.log(hook);
+                        this.deleteSpecificHookById(hook.self);
+                    });
+                }
+            }
+        ).auth(adminJiraUser, suprScrtPwd, true);
+
+
+
+    }
+
+    private deleteSpecificHookById(url){
+        request.delete(
+            url,
             function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     //console.log(body)

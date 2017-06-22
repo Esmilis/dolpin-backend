@@ -9,6 +9,7 @@ var JiraHooks = (function () {
     function JiraHooks() {
     }
     JiraHooks.prototype.initHooks = function () {
+        this.deleteHook();
         this.setupSprintStartEnd();
         this.setupIssueHooks("TEST");
         this.setupIssueHooks("BAD");
@@ -41,6 +42,31 @@ var JiraHooks = (function () {
                 "excludeIssueDetails": false
             }
         }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                //console.log(body)
+                //console.log(error);
+                //console.log(response);
+            }
+        }).auth(adminJiraUser, suprScrtPwd, true);
+    };
+    JiraHooks.prototype.deleteHook = function () {
+        var _this = this;
+        var data;
+        request.get(jiraAddress, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                //console.log(body)
+                //console.log(error);
+                //console.log(response);
+                data = JSON.parse(response.body);
+                data.forEach(function (hook) {
+                    console.log(hook);
+                    _this.deleteSpecificHookById(hook.self);
+                });
+            }
+        }).auth(adminJiraUser, suprScrtPwd, true);
+    };
+    JiraHooks.prototype.deleteSpecificHookById = function (url) {
+        request.delete(url, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 //console.log(body)
                 //console.log(error);
