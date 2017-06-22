@@ -2,8 +2,9 @@
 
 // BASE SETUP
 // =============================================================================
-
+import soundManager from './soundManager';
 // call the packages we need
+
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
@@ -23,6 +24,11 @@ var router = express.Router();              // get an instance of the express Ro
 router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 });
+
+router.route('/play').get(function(req, res) {
+    console.log("fuck you bitch");
+    soundManager.playSound();
+})
 
 // more routes for our API will happen here
 

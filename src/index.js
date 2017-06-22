@@ -1,6 +1,9 @@
 // server.js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // BASE SETUP
 // =============================================================================
+var soundManager_1 = require("./soundManager");
 // call the packages we need
 var express = require('express'); // call express
 var app = express(); // define our app using express
@@ -16,6 +19,10 @@ var router = express.Router(); // get an instance of the express Router
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function (req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
+});
+router.route('/play').get(function (req, res) {
+    console.log("fuck you bitch");
+    soundManager_1.default.playSound();
 });
 // more routes for our API will happen here
 // REGISTER OUR ROUTES -------------------------------
