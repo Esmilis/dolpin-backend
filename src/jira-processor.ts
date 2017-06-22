@@ -85,11 +85,11 @@ export class SoundEvent {
 }
 
 export enum eventType {
-    ISSUE_CREATED_BLOCKER = <any> "blockerIssueCreated",
-    ISSUE_CREATED_CRITICAL = <any> "criticalIssueCreated",
+    ISSUE_CREATED_BLOCKER = <any> "issue-created-blocker",
+    ISSUE_CREATED_CRITICAL = <any> "issue-created-critical",
     ISSUE_CREATED_MAJOR = <any> "majorIssueCreated",
     ISSUE_CREATED_MINOR = <any> "minorIssueCreated",
-    ISSUE_CREATED_TRIVIAL = <any> "trivialIssueCreated",
+    ISSUE_CREATED_TRIVIAL = <any> "issue-created-trivial",
 
     issueCreated = <any> "issueCreated",
     issueTaken = <any> "issueTaken",
