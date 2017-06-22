@@ -34,8 +34,11 @@ var router = express.Router(); // get an instance of the express Router
 router.get('/', function (req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 });
-router.route('/jirahooks').post(function (req, res) {
-    player.play(jira_processor_1.JiraProcessor.process(req.body));
+router.route('/jiraissues').post(function (req, res) {
+    player.play(jira_processor_1.JiraProcessor.processIssue(req.body));
+});
+router.route('/jirasprints').post(function (req, res) {
+    player.play(jira_processor_1.JiraProcessor.processSprint(req.body));
 });
 router.route('/jenkinshooks').post(function (req, res) {
     player.playOne("sprintClosed");

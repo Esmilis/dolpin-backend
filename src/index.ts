@@ -40,8 +40,12 @@ router.get('/', function (req, res) {
     res.json({message: 'hooray! welcome to our api!'});
 });
 
-router.route('/jirahooks').post((req, res) => {
-    player.play(JiraProcessor.process(req.body));
+router.route('/jiraissues').post((req, res) => {
+    player.play(JiraProcessor.processIssue(req.body));
+});
+
+router.route('/jirasprints').post((req, res) => {
+    player.play(JiraProcessor.processSprint(req.body));
 });
 
 router.route('/jenkinshooks').post((req, res) => {

@@ -1,9 +1,13 @@
 import * as _ from "underscore";
 
 export class JiraProcessor {
-    public static process(body: object): SoundEvent {
-        console.log(body);
+    public static processIssue(body: object): SoundEvent {
         return new SoundEvent(this.detectTeam(body), this.detectIssue(body))
+    }
+
+    public static processSprint(body: object): SoundEvent {
+        console.log(body);
+        return undefined;
     }
 
     private static detectTeam(body: object): string {
@@ -19,7 +23,7 @@ export class JiraProcessor {
 
             case "issue_updated":
                 let lastChange = _.last(body.changelog.items).toString;
-                switch(lastChange) {
+                switch (lastChange) {
                     case "In Progress":
                         return eventType.issueTaken;
 
