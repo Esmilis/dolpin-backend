@@ -9,10 +9,16 @@ var JiraProcessor = (function () {
     };
     JiraProcessor.processSprint = function (body) {
         console.log(body);
-        return undefined;
+        return new SoundEvent(this.detectSprintTeam(body), this.detectSprint(body));
     };
     JiraProcessor.detectTeam = function (body) {
         return body.issue.fields.project.name;
+    };
+    JiraProcessor.detectSprintTeam = function (body) {
+        if (body.sprint.name.match(/BAD[\w\s]+/))
+            return "Bad Project";
+        else if (body.sprint.name.match(/TEST[\w\s]+/))
+            return "TEST";
     };
     JiraProcessor.detectIssue = function (body) {
         switch (body.issue_event_type_name) {
@@ -28,6 +34,14 @@ var JiraProcessor = (function () {
                 }
             default:
                 return eventType.unknown;
+        }
+    };
+    JiraProcessor.detectSprint = function (body) {
+        switch (body.webhookEvent) {
+            case "sprint_closed":
+                return eventType.sprintClosed;
+            case "sprint_started":
+                return eventType.sprintStarted;
         }
     };
     return JiraProcessor;
@@ -50,5 +64,10 @@ var eventType;
     eventType[eventType["issueTaken"] = "issueTaken"] = "issueTaken";
     eventType[eventType["issueFinished"] = "issueFinished"] = "issueFinished";
     eventType[eventType["issueClosed"] = "issueClosed"] = "issueClosed";
+    eventType[eventType["sprintClosed"] = "sprintClosed"] = "sprintClosed";
+    eventType[eventType["sprintStarted"] = "celebration"] = "sprintStarted";
+    eventType[eventType["buildStarted"] = "buildStarted"] = "buildStarted";
+    eventType[eventType["buildFailed"] = "buildFailed"] = "buildFailed";
+    eventType[eventType["buildSucceeded"] = "buildSucceeded"] = "buildSucceeded";
     eventType[eventType["unknown"] = "no idea"] = "unknown";
 })(eventType = exports.eventType || (exports.eventType = {}));

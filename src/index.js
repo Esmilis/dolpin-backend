@@ -1,11 +1,12 @@
-// server.js
 "use strict";
+// server.js
 Object.defineProperty(exports, "__esModule", { value: true });
 // BASE SETUP
 // =============================================================================
 var soundManager_1 = require("./soundManager");
 var jira_processor_1 = require("./jira-processor");
 var jira_requests_1 = require("./requests/jira/jira-requests");
+var jenkins_processor_1 = require("./jenkins-processor");
 // call the packages we need
 var express = require('express'); // call express
 var app = express(); // define our app using express
@@ -71,7 +72,7 @@ router.route('/setupjirahooks').get(function (req, res) {
     jiraHooksManufactory.initHooks();
 });
 router.route('/jenkinshooks').post(function (req, res) {
-    player.playOne("sprintClosed");
+    player.play(jenkins_processor_1.default.process(req.body));
 });
 router.route('/updateConfig').post(function (req, res) {
     //this has to go to database.

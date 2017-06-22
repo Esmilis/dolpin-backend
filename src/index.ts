@@ -5,7 +5,7 @@
 import SoundManager from './soundManager';
 import {eventType, JiraProcessor, SoundEvent} from "./jira-processor";
 import JiraHooks from './requests/jira/jira-requests';
-
+import JenkinsProcessor from "./jenkins-processor";
 // call the packages we need
 
 var express = require('express');        // call express
@@ -81,7 +81,7 @@ router.route('/setupjirahooks').get((req, res) => {
 });
 
 router.route('/jenkinshooks').post((req, res) => {
-    player.playOne("sprintClosed");
+    player.play(JenkinsProcessor.process(req.body));
 });
 
 router.route('/updateConfig').post(function (req, res) {

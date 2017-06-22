@@ -70,6 +70,9 @@ export enum eventType {
     issueFinished = <any> "issueFinished",
     issueClosed = <any> "issueClosed",
     sprintClosed = <any> "sprintClosed",
-    sprintStarted = <any> "sprintStarted",
+    sprintStarted = <any> "celebration",
+    buildStarted = <any> "buildStarted",
+    buildFailed = <any> "buildFailed",
+    buildSucceeded = <any> "buildSucceeded",
     unknown = <any> "no idea",
 }
