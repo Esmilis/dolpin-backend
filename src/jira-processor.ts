@@ -45,10 +45,10 @@ export class JiraProcessor {
 
                     case "Story":
                         switch (body.user.key){
-                            case "Dohlpin":
+                            case "dohlpin":
                                 return eventType.dolpinIssueCreated;
                             default :
-                                return eventType.issueTaken;
+                                return eventType.issueCreated;
                         }
                 }
                 return eventType.issueCreated;

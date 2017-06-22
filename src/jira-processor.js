@@ -26,18 +26,16 @@ var JiraProcessor = (function () {
                 switch (body.issue.fields.issuetype.name) {
                     case "Bug":
                         switch (body.issue.fields.priority.name) {
-                            case "Highest":
-                                return eventType.issueTaken;
-                            case "High":
-                                return eventType.issueTaken;
-                            case "High":
-                                return eventType.issueTaken;
-                            case "Medium":
-                                return eventType.issueTaken;
-                            case "Low":
-                                return eventType.issueTaken;
-                            case "Lowest":
-                                return eventType.issueTaken;
+                            case "Blocker":
+                                return eventType.ISSUE_CREATED_BLOCKER;
+                            case "Critical":
+                                return eventType.ISSUE_CREATED_CRITICAL;
+                            case "Major":
+                                return eventType.ISSUE_CREATED_MAJOR;
+                            case "Minor":
+                                return eventType.ISSUE_CREATED_MINOR;
+                            case "Trivial":
+                                return eventType.ISSUE_CREATED_TRIVIAL;
                         }
                         return eventType.issueCreated;
                     case "Task":
@@ -47,7 +45,7 @@ var JiraProcessor = (function () {
                             case "dohlpin":
                                 return eventType.dolpinIssueCreated;
                             default:
-                                return eventType.issueTaken;
+                                return eventType.issueCreated;
                         }
                 }
                 return eventType.issueCreated;
@@ -85,9 +83,11 @@ var SoundEvent = (function () {
 exports.SoundEvent = SoundEvent;
 var eventType;
 (function (eventType) {
-    eventType[eventType["criticalIssueCreated"] = "criticalIssueCreated"] = "criticalIssueCreated";
-    eventType[eventType["blockerIssueCreated"] = "blockerIssueCreated"] = "blockerIssueCreated";
-    eventType[eventType["trivialIssueCreated"] = "trivialIssueCreated"] = "trivialIssueCreated";
+    eventType[eventType["ISSUE_CREATED_BLOCKER"] = "issue-created-blocker"] = "ISSUE_CREATED_BLOCKER";
+    eventType[eventType["ISSUE_CREATED_CRITICAL"] = "issue-created-critical"] = "ISSUE_CREATED_CRITICAL";
+    eventType[eventType["ISSUE_CREATED_MAJOR"] = "majorIssueCreated"] = "ISSUE_CREATED_MAJOR";
+    eventType[eventType["ISSUE_CREATED_MINOR"] = "minorIssueCreated"] = "ISSUE_CREATED_MINOR";
+    eventType[eventType["ISSUE_CREATED_TRIVIAL"] = "issue-created-trivial"] = "ISSUE_CREATED_TRIVIAL";
     eventType[eventType["issueCreated"] = "issueCreated"] = "issueCreated";
     eventType[eventType["issueTaken"] = "issueTaken"] = "issueTaken";
     eventType[eventType["issueFinished"] = "issueFinished"] = "issueFinished";
