@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // =============================================================================
 var soundManager_1 = require("./soundManager");
 var jira_processor_1 = require("./jira-processor");
+var jira_requests_1 = require("./requests/jira/jira-requests");
 // call the packages we need
 var express = require('express'); // call express
 var app = express(); // define our app using express
@@ -12,7 +13,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 // #mongoose.connect('mongodb://localhost:27017/dolphin'); // connect to our database
 var player = new soundManager_1.default();
-var jiraHooksManufactory = new jira_processor_1.JiraProcessor;
+var jiraHooksManufactory = new jira_requests_1.default();
 // var Cat = mongoose.model('Cat', { name: String });
 //
 // var kitty = new Cat({ name: 'Zildjian' });
@@ -65,7 +66,8 @@ router.route('/jiraissues').post(function (req, res) {
 router.route('/jirasprints').post(function (req, res) {
     player.play(jira_processor_1.JiraProcessor.processSprint(req.body));
 });
-router.route('/setupjirahooks').post(function (req, res) {
+router.route('/setupjirahooks').get(function (req, res) {
+    console.log("starting init of hooks");
     jiraHooksManufactory.initHooks();
 });
 router.route('/jenkinshooks').post(function (req, res) {

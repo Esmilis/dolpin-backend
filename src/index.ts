@@ -4,6 +4,7 @@
 // =============================================================================
 import SoundManager from './soundManager';
 import {eventType, JiraProcessor, SoundEvent} from "./jira-processor";
+import JiraHooks from './requests/jira/jira-requests';
 
 // call the packages we need
 
@@ -13,7 +14,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 // #mongoose.connect('mongodb://localhost:27017/dolphin'); // connect to our database
 var player = new SoundManager();
-var jiraHooksManufactory = new JiraProcessor;
+var jiraHooksManufactory = new JiraHooks();
 // var Cat = mongoose.model('Cat', { name: String });
 //
 // var kitty = new Cat({ name: 'Zildjian' });
@@ -74,7 +75,8 @@ router.route('/jirasprints').post((req, res) => {
     player.play(JiraProcessor.processSprint(req.body));
 });
 
-router.route('/setupjirahooks').post((req, res) => {
+router.route('/setupjirahooks').get((req, res) => {
+    console.log("starting init of hooks");
     jiraHooksManufactory.initHooks();
 });
 
