@@ -44,7 +44,12 @@ export class JiraProcessor {
                         return eventType.issueTaken;
 
                     case "Story":
-                        return eventType.issueTaken;
+                        switch (body.user.key){
+                            case "Dohlpin":
+                                return eventType.dolpinIssueCreated;
+                            default :
+                                return eventType.issueTaken;
+                        }
                 }
                 return eventType.issueCreated;
 
@@ -101,4 +106,5 @@ export enum eventType {
     buildFailed = <any> "buildFailed",
     buildSucceeded = <any> "buildSucceeded",
     unknown = <any> "no idea",
+    dolpinIssueCreated = <any> "dolphinLaugh"
 }

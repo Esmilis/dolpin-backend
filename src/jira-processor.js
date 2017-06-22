@@ -43,7 +43,12 @@ var JiraProcessor = (function () {
                     case "Task":
                         return eventType.issueTaken;
                     case "Story":
-                        return eventType.issueTaken;
+                        switch (body.user.key) {
+                            case "dohlpin":
+                                return eventType.dolpinIssueCreated;
+                            default:
+                                return eventType.issueTaken;
+                        }
                 }
                 return eventType.issueCreated;
             case "issue_updated":
@@ -93,4 +98,5 @@ var eventType;
     eventType[eventType["buildFailed"] = "buildFailed"] = "buildFailed";
     eventType[eventType["buildSucceeded"] = "buildSucceeded"] = "buildSucceeded";
     eventType[eventType["unknown"] = "no idea"] = "unknown";
+    eventType[eventType["dolpinIssueCreated"] = "dolphinLaugh"] = "dolpinIssueCreated";
 })(eventType = exports.eventType || (exports.eventType = {}));
