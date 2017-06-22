@@ -27,18 +27,16 @@ export class JiraProcessor {
                 switch (body.issue.fields.issuetype.name) {
                     case "Bug":
                         switch (body.issue.fields.priority.name) {
-                            case "Highest":
-                                return eventType.issueTaken;
-                            case "High":
-                                return eventType.issueTaken;
-                            case "High":
-                                return eventType.issueTaken;
-                            case "Medium":
-                                return eventType.issueTaken;
-                            case "Low":
-                                return eventType.issueTaken;
-                            case "Lowest":
-                                return eventType.issueTaken;
+                            case "Blocker":
+                                return eventType.ISSUE_CREATED_BLOCKER;
+                            case "Critical":
+                                return eventType.ISSUE_CREATED_CRITICAL;
+                            case "Major":
+                                return eventType.ISSUE_CREATED_MAJOR;
+                            case "Minor":
+                                return eventType.ISSUE_CREATED_MINOR;
+                            case "Trivial":
+                                return eventType.ISSUE_CREATED_TRIVIAL;
                         }
                         return eventType.issueCreated;
 
@@ -87,9 +85,12 @@ export class SoundEvent {
 }
 
 export enum eventType {
-    criticalIssueCreated = <any> "criticalIssueCreated",
-    blockerIssueCreated = <any> "blockerIssueCreated",
-    trivialIssueCreated = <any> "trivialIssueCreated",
+    ISSUE_CREATED_BLOCKER = <any> "blockerIssueCreated",
+    ISSUE_CREATED_CRITICAL = <any> "criticalIssueCreated",
+    ISSUE_CREATED_MAJOR = <any> "majorIssueCreated",
+    ISSUE_CREATED_MINOR = <any> "minorIssueCreated",
+    ISSUE_CREATED_TRIVIAL = <any> "trivialIssueCreated",
+
     issueCreated = <any> "issueCreated",
     issueTaken = <any> "issueTaken",
     issueFinished = <any> "issueFinished",
