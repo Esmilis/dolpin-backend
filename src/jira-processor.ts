@@ -27,6 +27,7 @@ export class JiraProcessor {
                 return eventType.issueCreated;
 
             case "issue_updated":
+            case "issue_generic":
                 let lastChange = _.last(body.changelog.items).toString;
                 switch (lastChange) {
                     case "In Progress":
