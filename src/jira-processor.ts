@@ -59,9 +59,10 @@ export class JiraProcessor {
                 switch (lastChange) {
                     case "In Progress":
                         return eventType.issueTaken;
-
                     case "Done":
                         return eventType.issueFinished;
+                    default:
+                        return;
                 }
             default:
                 return eventType.unknown;
