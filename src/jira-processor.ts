@@ -7,16 +7,21 @@ export class JiraProcessor {
 
     public static processSprint(body: object): SoundEvent {
         console.log(body);
-        return undefined;
+        return new SoundEvent(this.detectSprintTeam(body), this.detectSprint(body));
     }
 
     private static detectTeam(body: object): string {
         return body.issue.fields.project.name;
     }
 
+    private static detectSprintTeam(body: object): string {
+        if (body.sprint.name.match(/BAD[\w\s]+/))
+            return "Bad Project";
+        else if (body.sprint.name.match(/TEST[\w\s]+/))
+            return "TEST";
+    }
+
     private static detectIssue(body: object): eventType {
-
-
         switch (body.issue_event_type_name) {
             case "issue_created":
                 return eventType.issueCreated;
@@ -35,8 +40,16 @@ export class JiraProcessor {
         }
     }
 
-}
+    private static detectSprint(body: object): eventType {
+        switch (body.webhookEvent) {
+            case "sprint_closed":
+                return eventType.sprintClosed;
 
+            case "sprint_started":
+                return eventType.sprintStarted;
+        }
+    }
+}
 
 export class SoundEvent {
     public teamName: string;
@@ -56,5 +69,7 @@ export enum eventType {
     issueTaken = <any> "issueTaken",
     issueFinished = <any> "issueFinished",
     issueClosed = <any> "issueClosed",
+    sprintClosed = <any> "sprintClosed",
+    sprintStarted = <any> "sprintStarted",
     unknown = <any> "no idea",
 }
