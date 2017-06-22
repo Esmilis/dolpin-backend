@@ -11,10 +11,13 @@ var JiraHooks = (function () {
     JiraHooks.prototype.initHooks = function () {
         this.setupSprintStartEnd("TEST");
         this.setupSprintStartEnd("BAD");
+        this.setupIssueHooks("TEST");
+        this.setupIssueHooks("BAD");
     };
     JiraHooks.prototype.setupIssueHooks = function (project) {
         var jiraEvents = ["jira:issue_created", "jira:issue_updated"];
         var name = "DophinIssueHook" + project;
+        this.createGenericHook(name, jiraEvents, project);
     };
     JiraHooks.prototype.setupSprintStartEnd = function (project) {
         var jiraEvents = ["sprint_started", "sprint_closed"];

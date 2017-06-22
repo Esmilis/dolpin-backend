@@ -9,13 +9,15 @@ export default class JiraHooks {
         this.setupSprintStartEnd("TEST");
         this.setupSprintStartEnd("BAD");
 
-
+        this.setupIssueHooks("TEST");
+        this.setupIssueHooks("BAD");
 
     }
 
     public setupIssueHooks(project){
         var jiraEvents = ["jira:issue_created", "jira:issue_updated"];
         var name = "DophinIssueHook" + project;
+        this.createGenericHook(name, jiraEvents, project);
     }
 
     public setupSprintStartEnd(project){
