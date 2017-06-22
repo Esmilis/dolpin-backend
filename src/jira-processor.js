@@ -23,6 +23,28 @@ var JiraProcessor = (function () {
     JiraProcessor.detectIssue = function (body) {
         switch (body.issue_event_type_name) {
             case "issue_created":
+                switch (body.issue.fields.issuetype.name) {
+                    case "Bug":
+                        switch (body.issue.fields.priority.name) {
+                            case "Highest":
+                                return eventType.issueTaken;
+                            case "High":
+                                return eventType.issueTaken;
+                            case "High":
+                                return eventType.issueTaken;
+                            case "Medium":
+                                return eventType.issueTaken;
+                            case "Low":
+                                return eventType.issueTaken;
+                            case "Lowest":
+                                return eventType.issueTaken;
+                        }
+                        return eventType.issueCreated;
+                    case "Task":
+                        return eventType.issueTaken;
+                    case "Story":
+                        return eventType.issueTaken;
+                }
                 return eventType.issueCreated;
             case "issue_updated":
             case "issue_generic":
