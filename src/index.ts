@@ -32,6 +32,31 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8082;        // set our port
 
+var placeholderConfig = {
+    blockerIssue: true,
+    bugCreated: false,
+    buildCompleted: true,
+    buildFailed: true,
+    buildFailing: true,
+    buildStarted: false,
+    criticalIssue: true,
+    issueClosed: false,
+    issueCreated: false,
+    issueFinished: false,
+    issueTaken: false,
+    majorIssue: true,
+    minorIssue: false,
+    name: "randomTeam",
+    newPullRequest: true,
+    pullRequestApproved: true,
+    pullRequestNeedsWork: true,
+    sprintFinished: true,
+    sprintStarted: true,
+    trivialIssue: false,
+    unknown: false,
+    usClosed: true
+};
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
@@ -57,9 +82,16 @@ router.route('/jenkinshooks').post((req, res) => {
     player.playOne("sprintClosed");
 });
 
-router.route('/updateConfig').get(function(req, res) {
-    console.log("updateConfig");
-    res.json({ message: 'update config' });
+router.route('/updateConfig').post(function (req, res) {
+    //this has to go to database.
+    console.log("req:", req.body);
+    res.json({message: 'update config'});
+});
+
+router.route('/getConfig').get(function (req, res) {
+    console.log("getConfig!");
+    res.setHeader("Content-Type", "application/json");
+    res.send(JSON.stringify(placeholderConfig));
 });
 
 // REGISTER OUR ROUTES -------------------------------
