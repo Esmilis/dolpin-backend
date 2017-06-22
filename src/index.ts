@@ -13,6 +13,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 // #mongoose.connect('mongodb://localhost:27017/dolphin'); // connect to our database
 var player = new SoundManager();
+var jiraHooksManufactory = new JiraProcessor;
 // var Cat = mongoose.model('Cat', { name: String });
 //
 // var kitty = new Cat({ name: 'Zildjian' });
@@ -46,6 +47,10 @@ router.route('/jiraissues').post((req, res) => {
 
 router.route('/jirasprints').post((req, res) => {
     player.play(JiraProcessor.processSprint(req.body));
+});
+
+router.route('/setupjirahooks').post((req, res) => {
+    jiraHooksManufactory.initHooks();
 });
 
 router.route('/jenkinshooks').post((req, res) => {
