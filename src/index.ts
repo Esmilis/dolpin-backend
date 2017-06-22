@@ -11,7 +11,7 @@ var express = require('express');        // call express
 var app = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-#mongoose.connect('mongodb://localhost:27017/dolphin'); // connect to our database
+// #mongoose.connect('mongodb://localhost:27017/dolphin'); // connect to our database
 var player = new SoundManager();
 // var Cat = mongoose.model('Cat', { name: String });
 //
