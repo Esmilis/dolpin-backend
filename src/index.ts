@@ -3,7 +3,7 @@
 // BASE SETUP
 // =============================================================================
 import SoundManager from './soundManager';
-import {JiraProcessor} from "./jira-processor";
+import {eventType, JiraProcessor, SoundEvent} from "./jira-processor";
 
 // call the packages we need
 
@@ -42,6 +42,10 @@ router.get('/', function (req, res) {
 
 router.route('/jirahooks').post((req, res) => {
     player.play(JiraProcessor.process(req.body));
+});
+
+router.route('/jenkinshooks').post((req, res) => {
+    player.play(new SoundEvent("empty", eventType.unknown));
 });
 
 app.use('/api', router);

@@ -37,6 +37,9 @@ router.get('/', function (req, res) {
 router.route('/jirahooks').post(function (req, res) {
     player.play(jira_processor_1.JiraProcessor.process(req.body));
 });
+router.route('/jenkinshooks').post(function (req, res) {
+    player.play(new jira_processor_1.SoundEvent("empty", jira_processor_1.eventType.unknown));
+});
 app.use('/api', router);
 // START THE SERVER
 // =============================================================================

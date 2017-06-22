@@ -5,14 +5,18 @@ import {SoundEvent} from "./jira-processor";
 var opts = {};
 const path = require('path');
 var player = require('play-sound')(opts);
+const resourcePath = './resources/sounds/';
 
 export default class SoundManager {
     public play(event: SoundEvent) {
         console.log("playing sound", event);
-        player.play(path.resolve('./resources/sounds/dolphinLaugh.mp3'), err => { console.log("shit", err);}).then(e=>console.log("donePlaying"));
+        player.play(path.resolve(resourcePath, 'dolphinLaugh.mp3'), err => {
+            player.play(path.resolve(resourcePath, 'dolphinLaugh.mp3'), err => {
+                console.log("done event");
+            });
+        });
     };
 }
-
 
 
 //
