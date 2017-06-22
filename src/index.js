@@ -1,5 +1,5 @@
-// server.js
 "use strict";
+// server.js
 Object.defineProperty(exports, "__esModule", { value: true });
 // BASE SETUP
 // =============================================================================
