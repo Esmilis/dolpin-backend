@@ -48,6 +48,13 @@ router.route('/jenkinshooks').post((req, res) => {
     player.play(new SoundEvent("empty", eventType.unknown));
 });
 
+router.route('/updateConfig').get(function(req, res) {
+    console.log("updateConfig");
+    res.json({ message: 'update config' });
+});
+
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
 app.use('/api', router);
 
 // START THE SERVER
