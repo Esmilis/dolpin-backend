@@ -45,7 +45,7 @@ router.route('/jirahooks').post((req, res) => {
 });
 
 router.route('/jenkinshooks').post((req, res) => {
-    player.play(new SoundEvent("empty", eventType.unknown));
+    player.playOne("sprintClosed");
 });
 
 router.route('/updateConfig').get(function(req, res) {

@@ -14,27 +14,36 @@ export default class SoundManager {
         this.queue(path.resolve(resourcePath, event.event + '.mp3'));
     };
 
+    public playOne(name: string) {
+        this.queue(path.resolve(resourcePath, name + '.mp3'));
+
+    }
+
     private list = [];
     private playing = false;
 
     private queue(sound: string) {
-        if(this.playing) {
+        if (this.playing) {
             this.list.push(sound);
         }
         else {
             this.playing = true;
-            player.play(sound, () => {this.callback()});
+            player.play(sound, () => {
+                this.callback()
+            });
         }
     }
 
     private callback() {
         console.log("callback", this.list.length);
-        if(this.list.length == 0) {
+        if (this.list.length == 0) {
             this.playing = false;
             return;
         }
         else {
-            player.play(this.list.splice(0, 1)[0], () => {this.callback()});
+            player.play(this.list.splice(0, 1)[0], () => {
+                this.callback()
+            });
         }
     }
 }
