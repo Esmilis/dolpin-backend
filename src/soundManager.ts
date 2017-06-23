@@ -1,4 +1,4 @@
-import {SoundEvent} from "./jira-processor";
+import {eventType, SoundEvent} from "./jira-processor";
 /**
  * Created by Ehofas on 6/22/2017.
  */
@@ -10,8 +10,10 @@ const resourcePath = './resources/sounds/';
 export default class SoundManager {
     public play(event: SoundEvent) {
         console.log("playing sound", event);
-        this.queue(path.resolve(resourcePath, event.teamName + '.mp3'));
-        this.queue(path.resolve(resourcePath, event.event + '.mp3'));
+        if(event.event !== eventType.unknown) {
+            this.queue(path.resolve(resourcePath, event.teamName + '.mp3'));
+            this.queue(path.resolve(resourcePath, event.event + '.mp3'));
+        }
     };
 
     public playOne(name: string) {
