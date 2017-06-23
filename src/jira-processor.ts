@@ -117,5 +117,7 @@ export enum eventTypeJira {
     sprintClosed = <any> "celebration",
     sprintStarted = <any> "sprintStarted",
 
-    UNKNOWN = <any> "no idea"
+    UNKNOWN = <any> "no idea",
+
+    BITCH_ASS_NIGA = <any> "kaz" // need Kaz issue type - bitch ass niga
 }
