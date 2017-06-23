@@ -38,7 +38,7 @@ export class JiraProcessor {
                             case "Trivial":
                                 return eventTypeJira.ISSUE_CREATED_TRIVIAL;
                         }
-                        return eventTypeJira.issueCreated;
+                        return eventTypeJira.ISSUE_CREATED;
 
                     case "Task":
                         return eventTypeJira.issueTaken;
@@ -48,10 +48,10 @@ export class JiraProcessor {
                             case "dohlpin":
                                 return eventTypeJira.dolpinIssueCreated;
                             default :
-                                return eventTypeJira.issueCreated;
+                                return eventTypeJira.ISSUE_CREATED;
                         }
                 }
-                return eventTypeJira.issueCreated;
+                return eventTypeJira.ISSUE_CREATED;
 
             case "issue_updated":
             case "issue_generic":
@@ -104,10 +104,11 @@ export enum eventTypeJira {
     ISSUE_CREATED_MAJOR = <any> "---",
     ISSUE_CREATED_MINOR = <any> "---",
     ISSUE_CREATED_TRIVIAL = <any> "issue-created-trivial",
+    ISSUE_CREATED = <any> "issue-created",
+    dolpinIssueCreated = <any> "dolphinLaugh",
 
     ISSUE_EDIT_REQUIREMENTS = <any> "issue-edit-requirements",
 
-    issueCreated = <any> "issueCreated",
     issueTaken = <any> "issueTaken",
     ISSUE_STATUS_IN_PROGRESS = <any> "issues-status-in-progress",
     ISSUE_STATUS_DONE = <any> "issue-status-done",
@@ -116,6 +117,5 @@ export enum eventTypeJira {
     sprintClosed = <any> "celebration",
     sprintStarted = <any> "sprintStarted",
 
-    UNKNOWN = <any> "no idea",
-    dolpinIssueCreated = <any> "dolphinLaugh"
+    UNKNOWN = <any> "no idea"
 }

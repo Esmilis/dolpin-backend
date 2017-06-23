@@ -27,7 +27,7 @@ export default class JenkinsProcessor {
 
 export enum eventTypeJenkins {
     BUILD_STARTED = <any> "build-started",
-    BUILD_FAILED = <any> "buildFailed",
+    BUILD_FAILED = <any> "build-failed",
     BUILD_SUCCEEDED = <any> "---",
     UNKNOWN = <any> "---"
 }
