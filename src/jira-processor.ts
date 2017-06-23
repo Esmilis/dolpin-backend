@@ -1,4 +1,5 @@
 import * as _ from "underscore";
+import {eventTypeJenkins} from "./jenkins-processor";
 
 export class JiraProcessor {
     public static processIssue(body: object): SoundEvent {
@@ -60,7 +61,7 @@ export class JiraProcessor {
                 switch (lastChange.field) {
                     case "Requirements":
                         return eventTypeJira.ISSUE_EDIT_REQUIREMENTS;
-                    case "Status":
+                    case "status":
                         switch (lastChange.toString) {
                             case "In Progress":
                                 return eventTypeJira.ISSUE_STATUS_IN_PROGRESS;
@@ -90,9 +91,9 @@ export class JiraProcessor {
 
 export class SoundEvent {
     public teamName: string;
-    public event: string;
+    public event: eventTypeJenkins | eventTypeJira;
 
-    constructor(teamname: string, event: string) {
+    constructor(teamname: string, event: eventTypeJenkins | eventTypeJira) {
         this.teamName = teamname;
         this.event = event;
     }
