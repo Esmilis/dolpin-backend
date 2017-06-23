@@ -103,7 +103,7 @@ export enum eventTypeJira {
     ISSUE_CREATED_BLOCKER = <any> "issue-created-blocker",
     ISSUE_CREATED_CRITICAL = <any> "issue-created-critical",
     ISSUE_CREATED_MAJOR = <any> "---",
-    ISSUE_CREATED_MINOR = <any> "---",
+    ISSUE_CREATED_MINOR = <any> "issue-created-minor",
     ISSUE_CREATED_TRIVIAL = <any> "issue-created-trivial",
     ISSUE_CREATED = <any> "issue-created",
     dolpinIssueCreated = <any> "dolphinLaugh",
