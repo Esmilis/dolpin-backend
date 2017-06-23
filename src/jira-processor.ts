@@ -58,9 +58,9 @@ export class JiraProcessor {
                 let lastChange = _.last(body.changelog.items).toString;
                 switch (lastChange) {
                     case "In Progress":
-                        return eventType.issueTaken;
+                        return eventType.ISSUE_STATUS_IN_PROGRESS;
                     case "Done":
-                        return eventType.issueFinished;
+                        return eventType.ISSUE_STATUS_DONE;
                     default:
                         return;
                 }
@@ -99,8 +99,10 @@ export enum eventType {
 
     issueCreated = <any> "issueCreated",
     issueTaken = <any> "issueTaken",
-    issueFinished = <any> "issueFinished",
-    issueClosed = <any> "issueClosed",
+    ISSUE_STATUS_IN_PROGRESS = <any> "issues-status-in-progress",
+    ISSUE_STATUS_DONE = <any> "issue-status-done",
+    ISSUE_STATUS_CLOSED = <any> "issue-status-closed",
+
     sprintClosed = <any> "celebration",
     sprintStarted = <any> "sprintStarted",
     buildStarted = <any> "buildStarted",
