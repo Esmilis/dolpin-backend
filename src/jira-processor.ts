@@ -45,7 +45,7 @@ export class JiraProcessor {
                         return eventTypeJira.issueTaken;
 
                     case "Story":
-                        switch (body.user.key){
+                        switch (body.user.key) {
                             case "dohlpin":
                                 return eventTypeJira.dolpinIssueCreated;
                             default :
@@ -57,21 +57,32 @@ export class JiraProcessor {
             case "issue_updated":
             case "issue_generic":
                 let lastChange = _.last(body.changelog.items);
-
-                switch (lastChange.field) {
-                    case "Requirements":
-                        return eventTypeJira.ISSUE_EDIT_REQUIREMENTS;
-                    case "status":
+                switch (body.issue.fields.issuetype.name) {
+                    case "Bug":
                         switch (lastChange.toString) {
                             case "In Progress":
-                                return eventTypeJira.ISSUE_STATUS_IN_PROGRESS;
+                                return eventTypeJira.BUG_TAKEN;
                             case "Done":
-                                return eventTypeJira.ISSUE_STATUS_DONE;
+                                return eventTypeJira.BUG_CLOSED;
                             default:
                                 return;
                         }
                     default:
-                        return;
+                        switch (lastChange.field) {
+                            case "Requirements":
+                                return eventTypeJira.ISSUE_EDIT_REQUIREMENTS;
+                            case "status":
+                                switch (lastChange.toString) {
+                                    case "In Progress":
+                                        return eventTypeJira.ISSUE_STATUS_IN_PROGRESS;
+                                    case "Done":
+                                        return eventTypeJira.ISSUE_STATUS_DONE;
+                                    default:
+                                        return;
+                                }
+                            default:
+                                return;
+                        }
                 }
             default:
                 return eventTypeJira.UNKNOWN;
@@ -111,9 +122,11 @@ export enum eventTypeJira {
     ISSUE_EDIT_REQUIREMENTS = <any> "issue-edit-requirements",
 
     issueTaken = <any> "issueTaken",
-    ISSUE_STATUS_IN_PROGRESS = <any> "issues-status-in-progress",
+    ISSUE_STATUS_IN_PROGRESS = <any> "issue-status-in-progress",
     ISSUE_STATUS_DONE = <any> "issue-status-done",
     ISSUE_STATUS_CLOSED = <any> "issue-status-closed",
+    BUG_CLOSED = <any> "bugClosed",
+    BUG_TAKEN = <any> "bugClosed",
 
     sprintClosed = <any> "celebration",
     sprintStarted = <any> "sprintStarted",
