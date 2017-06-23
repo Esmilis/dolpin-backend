@@ -21,37 +21,37 @@ export class JiraProcessor {
             return "TEST";
     }
 
-    private static detectIssue(body: object): eventType {
+    private static detectIssue(body: object): eventTypeJira {
         switch (body.issue_event_type_name) {
             case "issue_created":
                 switch (body.issue.fields.issuetype.name) {
                     case "Bug":
                         switch (body.issue.fields.priority.name) {
                             case "Blocker":
-                                return eventType.ISSUE_CREATED_BLOCKER;
+                                return eventTypeJira.ISSUE_CREATED_BLOCKER;
                             case "Critical":
-                                return eventType.ISSUE_CREATED_CRITICAL;
+                                return eventTypeJira.ISSUE_CREATED_CRITICAL;
                             case "Major":
-                                return eventType.ISSUE_CREATED_MAJOR;
+                                return eventTypeJira.ISSUE_CREATED_MAJOR;
                             case "Minor":
-                                return eventType.ISSUE_CREATED_MINOR;
+                                return eventTypeJira.ISSUE_CREATED_MINOR;
                             case "Trivial":
-                                return eventType.ISSUE_CREATED_TRIVIAL;
+                                return eventTypeJira.ISSUE_CREATED_TRIVIAL;
                         }
-                        return eventType.issueCreated;
+                        return eventTypeJira.issueCreated;
 
                     case "Task":
-                        return eventType.issueTaken;
+                        return eventTypeJira.issueTaken;
 
                     case "Story":
                         switch (body.user.key){
                             case "dohlpin":
-                                return eventType.dolpinIssueCreated;
+                                return eventTypeJira.dolpinIssueCreated;
                             default :
-                                return eventType.issueCreated;
+                                return eventTypeJira.issueCreated;
                         }
                 }
-                return eventType.issueCreated;
+                return eventTypeJira.issueCreated;
 
             case "issue_updated":
             case "issue_generic":
@@ -59,13 +59,13 @@ export class JiraProcessor {
 
                 switch (lastChange.field) {
                     case "Requirements":
-                        return eventType.ISSUE_EDIT_REQUIREMENTS;
+                        return eventTypeJira.ISSUE_EDIT_REQUIREMENTS;
                     case "Status":
                         switch (lastChange.toString) {
                             case "In Progress":
-                                return eventType.ISSUE_STATUS_IN_PROGRESS;
+                                return eventTypeJira.ISSUE_STATUS_IN_PROGRESS;
                             case "Done":
-                                return eventType.ISSUE_STATUS_DONE;
+                                return eventTypeJira.ISSUE_STATUS_DONE;
                             default:
                                 return;
                         }
@@ -73,36 +73,36 @@ export class JiraProcessor {
                         return;
                 }
             default:
-                return eventType.unknown;
+                return eventTypeJira.UNKNOWN;
         }
     }
 
-    private static detectSprint(body: object): eventType {
+    private static detectSprint(body: object): eventTypeJira {
         switch (body.webhookEvent) {
             case "sprint_closed":
-                return eventType.sprintClosed;
+                return eventTypeJira.sprintClosed;
 
             case "sprint_started":
-                return eventType.sprintStarted;
+                return eventTypeJira.sprintStarted;
         }
     }
 }
 
 export class SoundEvent {
     public teamName: string;
-    public event: eventType;
+    public event: string;
 
-    constructor(teamname: string, event: eventType) {
+    constructor(teamname: string, event: string) {
         this.teamName = teamname;
         this.event = event;
     }
 }
 
-export enum eventType {
+export enum eventTypeJira {
     ISSUE_CREATED_BLOCKER = <any> "issue-created-blocker",
     ISSUE_CREATED_CRITICAL = <any> "issue-created-critical",
-    ISSUE_CREATED_MAJOR = <any> "majorIssueCreated",
-    ISSUE_CREATED_MINOR = <any> "minorIssueCreated",
+    ISSUE_CREATED_MAJOR = <any> "---",
+    ISSUE_CREATED_MINOR = <any> "---",
     ISSUE_CREATED_TRIVIAL = <any> "issue-created-trivial",
 
     ISSUE_EDIT_REQUIREMENTS = <any> "issue-edit-requirements",
@@ -115,9 +115,7 @@ export enum eventType {
 
     sprintClosed = <any> "celebration",
     sprintStarted = <any> "sprintStarted",
-    buildStarted = <any> "buildStarted",
-    buildFailed = <any> "buildFailed",
-    buildSucceeded = <any> "buildSucceeded",
-    unknown = <any> "no idea",
+
+    UNKNOWN = <any> "no idea",
     dolpinIssueCreated = <any> "dolphinLaugh"
 }
