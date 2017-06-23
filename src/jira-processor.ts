@@ -55,12 +55,20 @@ export class JiraProcessor {
 
             case "issue_updated":
             case "issue_generic":
-                let lastChange = _.last(body.changelog.items).toString;
-                switch (lastChange) {
-                    case "In Progress":
-                        return eventType.ISSUE_STATUS_IN_PROGRESS;
-                    case "Done":
-                        return eventType.ISSUE_STATUS_DONE;
+                let lastChange = _.last(body.changelog.items);
+
+                switch (lastChange.field) {
+                    case "Requirements":
+                        return eventType.ISSUE_EDIT_REQUIREMENTS;
+                    case "Status":
+                        switch (lastChange.toString) {
+                            case "In Progress":
+                                return eventType.ISSUE_STATUS_IN_PROGRESS;
+                            case "Done":
+                                return eventType.ISSUE_STATUS_DONE;
+                            default:
+                                return;
+                        }
                     default:
                         return;
                 }
@@ -96,6 +104,8 @@ export enum eventType {
     ISSUE_CREATED_MAJOR = <any> "majorIssueCreated",
     ISSUE_CREATED_MINOR = <any> "minorIssueCreated",
     ISSUE_CREATED_TRIVIAL = <any> "issue-created-trivial",
+
+    ISSUE_EDIT_REQUIREMENTS = <any> "issue-edit-requirements",
 
     issueCreated = <any> "issueCreated",
     issueTaken = <any> "issueTaken",
