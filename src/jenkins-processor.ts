@@ -2,7 +2,7 @@ import { SoundEvent } from "./jira-processor";
 
 export default class JenkinsProcessor {
     public static process(body: object): SoundEvent {
-        return new SoundEvent(body.name, this.getStatus(body));
+        return new SoundEvent("TEST", this.getStatus(body));
     }
 
     private static getStatus(body: object): eventTypeJenkins {
@@ -28,6 +28,6 @@ export default class JenkinsProcessor {
 export enum eventTypeJenkins {
     BUILD_STARTED = <any> "build-started",
     BUILD_FAILED = <any> "build-failed",
-    BUILD_SUCCEEDED = <any> "---",
+    BUILD_SUCCEEDED = <any> "build-success",
     UNKNOWN = <any> "---"
 }
