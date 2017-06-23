@@ -126,7 +126,7 @@ export enum eventTypeJira {
     ISSUE_STATUS_DONE = <any> "issue-status-done",
     ISSUE_STATUS_CLOSED = <any> "issue-status-closed",
     BUG_CLOSED = <any> "bugClosed",
-    BUG_TAKEN = <any> "bugClosed",
+    BUG_TAKEN = <any> "bugTaken",
 
     sprintClosed = <any> "celebration",
     sprintStarted = <any> "sprintStarted",
